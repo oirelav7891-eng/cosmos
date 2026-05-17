@@ -9,106 +9,235 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Rajdhani:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
+
+*{
+box-sizing:border-box;
+}
+
 body{
 margin:0;
 font-family:'Rajdhani',sans-serif;
-background: radial-gradient(circle at top,#0b1b3a,#05060f 60%,#000);
+
+background:
+linear-gradient(
+rgba(2,8,20,0.45),
+rgba(0,0,0,0.60)
+),
+url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?fm=jpg&q=100&w=2400')
+center center / cover no-repeat;
+
 color:white;
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
 overflow:hidden;
+position:relative;
 }
 
-/* sfondo glow animato */
+/* glow animato più leggero */
 body::before{
 content:"";
 position:absolute;
-width:600px;
-height:600px;
-background:radial-gradient(circle,rgba(0,255,255,.15),transparent 70%);
-filter:blur(60px);
-top:-100px;
-left:-100px;
-animation:float 8s ease-in-out infinite;
+width:700px;
+height:700px;
+
+background:
+radial-gradient(circle,
+rgba(0,255,255,.10),
+transparent 70%);
+
+filter:blur(35px);
+
+top:-180px;
+left:-180px;
+
+animation:float 10s ease-in-out infinite;
+}
+
+/* alone cinematico leggero */
+body::after{
+content:"";
+position:absolute;
+inset:0;
+
+background:
+radial-gradient(circle at center,
+rgba(0,255,255,0.04),
+transparent 60%);
+
+pointer-events:none;
 }
 
 @keyframes float{
-0%,100%{transform:translate(0,0);}
-50%{transform:translate(80px,60px);}
+0%,100%{
+transform:translate(0,0);
+}
+
+50%{
+transform:translate(120px,80px);
+}
 }
 
 .container{
 position:relative;
+z-index:2;
+
 text-align:center;
-padding:50px 40px;
-background:rgba(255,255,255,0.05);
-border-radius:25px;
+
+padding:55px 45px;
+
+background:rgba(10,20,35,0.32);
+
+border-radius:28px;
+
 backdrop-filter:blur(18px);
-box-shadow:0 0 40px rgba(0,255,255,.12);
+
+box-shadow:
+0 0 25px rgba(0,255,255,.10),
+0 0 80px rgba(0,180,255,.05);
+
 width:90%;
 max-width:720px;
-border:1px solid rgba(0,255,255,.15);
+
+border:1px solid rgba(120,220,255,.15);
 }
 
 h1{
 font-family:'Orbitron',sans-serif;
 color:#7ffcff;
-margin-bottom:10px;
+
+margin-bottom:12px;
+
 letter-spacing:2px;
-text-shadow:0 0 15px rgba(0,255,255,.35);
+
+font-size:2rem;
+
+text-shadow:
+0 0 10px rgba(0,255,255,.35),
+0 0 25px rgba(0,255,255,.15);
+
 animation:pulse 3s infinite;
 }
 
 @keyframes pulse{
-0%,100%{transform:scale(1);}
-50%{transform:scale(1.02);}
+0%,100%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.02);
+}
 }
 
 .description{
-color:#b9e9ff;
-margin-bottom:25px;
-opacity:.9;
+color:#d6f3ff;
+margin-bottom:30px;
+font-size:1.1rem;
+opacity:.95;
 }
 
 .countdown{
 display:grid;
 grid-template-columns:repeat(4,1fr);
-gap:15px;
-margin-top:25px;
+gap:18px;
+margin-top:30px;
 }
 
 .box{
-background:rgba(0,255,255,.06);
-padding:18px;
-border-radius:18px;
+background:rgba(0,255,255,.05);
+
+padding:22px 15px;
+
+border-radius:20px;
+
 text-align:center;
-border:1px solid rgba(0,255,255,.1);
-transition:0.3s ease;
-box-shadow:0 0 10px rgba(0,255,255,.05);
+
+border:1px solid rgba(0,255,255,.10);
+
+transition:.35s ease;
+
+box-shadow:
+0 0 10px rgba(0,255,255,.03);
 }
 
 .box:hover{
-transform:translateY(-5px);
-box-shadow:0 0 25px rgba(0,255,255,.25);
-border-color:rgba(0,255,255,.3);
+transform:translateY(-6px);
+
+box-shadow:
+0 0 25px rgba(0,255,255,.18);
+
+border-color:rgba(0,255,255,.25);
 }
 
 .number{
-font-size:2.4rem;
-font-family:'Orbitron';
-color:#9ffcff;
-text-shadow:0 0 12px rgba(0,255,255,.4);
+font-size:2.8rem;
+font-family:'Orbitron',sans-serif;
+
+color:#b8ffff;
+
+text-shadow:
+0 0 10px rgba(0,255,255,.35),
+0 0 25px rgba(0,255,255,.15);
 }
 
 .label{
-font-size:.85rem;
+font-size:.9rem;
+
 text-transform:uppercase;
-margin-top:5px;
-letter-spacing:1px;
-color:#cdefff;
+
+margin-top:8px;
+
+letter-spacing:2px;
+
+color:#e1f9ff;
 }
+
+/* responsive tablet */
+@media(max-width:700px){
+
+.container{
+padding:40px 25px;
+}
+
+h1{
+font-size:1.5rem;
+}
+
+.countdown{
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+}
+
+.number{
+font-size:2.2rem;
+}
+
+}
+
+/* responsive smartphone */
+@media(max-width:450px){
+
+.countdown{
+grid-template-columns:1fr;
+}
+
+.container{
+width:92%;
+padding:35px 20px;
+}
+
+h1{
+font-size:1.25rem;
+line-height:1.4;
+}
+
+.description{
+font-size:1rem;
+}
+
+}
+
 </style>
 </head>
 
@@ -153,31 +282,45 @@ Il futuro è in attesa...
 const targetDate = new Date("2027-06-25T00:00:00");
 
 function tick(){
+
 const now = new Date().getTime();
+
 const distance = targetDate - now;
 
 if(distance <= 0){
-document.getElementById("days").textContent="00";
-document.getElementById("hours").textContent="00";
-document.getElementById("minutes").textContent="00";
-document.getElementById("seconds").textContent="00";
+
+document.getElementById("days").textContent = "00";
+document.getElementById("hours").textContent = "00";
+document.getElementById("minutes").textContent = "00";
+document.getElementById("seconds").textContent = "00";
+
 return;
 }
 
 document.getElementById("days").textContent =
-String(Math.floor(distance/(1000*60*60*24))).padStart(2,"0");
+String(
+Math.floor(distance/(1000*60*60*24))
+).padStart(2,"0");
 
 document.getElementById("hours").textContent =
-String(Math.floor((distance/(1000*60*60))%24)).padStart(2,"0");
+String(
+Math.floor((distance/(1000*60*60))%24)
+).padStart(2,"0");
 
 document.getElementById("minutes").textContent =
-String(Math.floor((distance/(1000*60))%60)).padStart(2,"0");
+String(
+Math.floor((distance/(1000*60))%60)
+).padStart(2,"0");
 
 document.getElementById("seconds").textContent =
-String(Math.floor((distance/1000)%60)).padStart(2,"0");
+String(
+Math.floor((distance/1000)%60)
+).padStart(2,"0");
+
 }
 
 setInterval(tick,1000);
+
 tick();
 
 </script>
