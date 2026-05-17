@@ -14,6 +14,7 @@
 box-sizing:border-box;
 }
 
+/* 🌍 BODY FIX MOBILE */
 body{
 margin:0;
 font-family:'Rajdhani',sans-serif;
@@ -30,12 +31,17 @@ color:white;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
-overflow:hidden;
+
+/* FIX MOBILE STABILE */
+min-height:100vh;
+min-height:100dvh;
+padding:20px 0;
+
+overflow:auto;
 position:relative;
 }
 
-/* glow animato più leggero */
+/* glow */
 body::before{
 content:"";
 position:absolute;
@@ -55,7 +61,6 @@ left:-180px;
 animation:float 10s ease-in-out infinite;
 }
 
-/* alone cinematico leggero */
 body::after{
 content:"";
 position:absolute;
@@ -79,6 +84,7 @@ transform:translate(120px,80px);
 }
 }
 
+/* 📦 CONTAINER FIX */
 .container{
 position:relative;
 z-index:2;
@@ -101,8 +107,11 @@ width:90%;
 max-width:720px;
 
 border:1px solid rgba(120,220,255,.15);
+
+margin:auto;
 }
 
+/* ⭐ TITOLO */
 h1{
 font-family:'Orbitron',sans-serif;
 color:#7ffcff;
@@ -126,10 +135,11 @@ transform:scale(1);
 }
 
 50%{
-transform:scale(1.02);
+transform:scale(1.12);
 }
 }
 
+/* descrizione */
 .description{
 color:#d6f3ff;
 margin-bottom:30px;
@@ -137,6 +147,7 @@ font-size:1.1rem;
 opacity:.95;
 }
 
+/* countdown */
 .countdown{
 display:grid;
 grid-template-columns:repeat(4,1fr);
@@ -193,7 +204,7 @@ letter-spacing:2px;
 color:#e1f9ff;
 }
 
-/* responsive tablet */
+/* 📱 TABLET */
 @media(max-width:700px){
 
 .container{
@@ -215,25 +226,31 @@ font-size:2.2rem;
 
 }
 
-/* responsive smartphone */
+/* 📱 SMARTPHONE FIX DEFINITIVO */
 @media(max-width:450px){
 
 .countdown{
 grid-template-columns:1fr;
+gap:12px;
 }
 
 .container{
 width:92%;
-padding:35px 20px;
+padding:28px 18px;
 }
 
 h1{
-font-size:1.25rem;
-line-height:1.4;
+font-size:1.2rem;
+line-height:1.3;
+transform:scale(1);
 }
 
 .description{
-font-size:1rem;
+font-size:0.95rem;
+}
+
+.number{
+font-size:2rem;
 }
 
 }
@@ -298,29 +315,20 @@ return;
 }
 
 document.getElementById("days").textContent =
-String(
-Math.floor(distance/(1000*60*60*24))
-).padStart(2,"0");
+String(Math.floor(distance/(1000*60*60*24))).padStart(2,"0");
 
 document.getElementById("hours").textContent =
-String(
-Math.floor((distance/(1000*60*60))%24)
-).padStart(2,"0");
+String(Math.floor((distance/(1000*60*60))%24)).padStart(2,"0");
 
 document.getElementById("minutes").textContent =
-String(
-Math.floor((distance/(1000*60))%60)
-).padStart(2,"0");
+String(Math.floor((distance/(1000*60))%60)).padStart(2,"0");
 
 document.getElementById("seconds").textContent =
-String(
-Math.floor((distance/1000)%60)
-).padStart(2,"0");
+String(Math.floor((distance/1000)%60)).padStart(2,"0");
 
 }
 
 setInterval(tick,1000);
-
 tick();
 
 </script>
