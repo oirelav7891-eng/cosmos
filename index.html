@@ -419,7 +419,25 @@
       -webkit-transform: translateZ(0);
     }
 
-    </style>
+    
+    /* === MOBILE HOLOGRAPHIC FIX FINAL === */
+
+    @media (max-width: 1024px) {
+      .holo-ring {
+        opacity: 0.6;
+        filter: drop-shadow(0 0 35px rgba(56,189,248,0.5));
+      }
+
+      .card::before {
+        opacity: 0.85;
+      }
+
+      .stars {
+        opacity: 1;
+      }
+    }
+
+  </style>
 </head>
 <body>
   <div class="stars"></div>
