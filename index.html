@@ -1,327 +1,375 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Countdown 25 Giugno 2027</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&display=swap');
+    :root {
+      --bg: #020617;
+      --card: rgba(10, 15, 35, 0.72);
+      --text: #e2e8f0;
+      --accent: #38bdf8;
+      --secondary: #94a3b8;
+      --shadow: 0 0 50px rgba(56, 189, 248, 0.18);
+      --radius: 28px;
+      --font: 'Segoe UI', sans-serif;
+    }
 
-<title>Countdown 2027</title>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Rajdhani:wght@400;500;700&display=swap" rel="stylesheet">
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      font-family: var(--font);
+      background:
+        radial-gradient(circle at center, rgba(0,180,255,0.08), transparent 35%),
+        radial-gradient(circle at top, #08111f 0%, #020617 55%, #000000 100%);
+      color: var(--text);
+      overflow: hidden;
+      position: relative;
+    }
 
-<style>
+    .stars,
+    .stars::after,
+    .stars::before {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      box-shadow:
+        20vw 10vh white,
+        80vw 20vh white,
+        40vw 80vh white,
+        70vw 70vh white,
+        10vw 60vh white,
+        90vw 50vh white,
+        50vw 30vh white,
+        60vw 90vh white,
+        25vw 40vh white,
+        75vw 85vh white,
+        15vw 25vh white,
+        85vw 10vh white;
+      content: '';
+      animation: twinkle 4s infinite alternate;
+    }
 
-*{
-box-sizing:border-box;
-}
+    .stars::before {
+      transform: scale(1.5);
+      opacity: 0.7;
+    }
 
-body{
-margin:0;
-font-family:'Rajdhani',sans-serif;
+    .stars::after {
+      transform: scale(0.7);
+      opacity: 0.5;
+    }
 
-background:
-linear-gradient(
-rgba(2,8,20,0.45),
-rgba(0,0,0,0.60)
-),
-url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?fm=jpg&q=100&w=2400')
-center center / cover no-repeat;
+    @keyframes twinkle {
+      from {
+        opacity: 0.4;
+      }
+      to {
+        opacity: 1;
+      }
+    }
 
-color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-overflow:hidden;
-position:relative;
-}
+    
 
-/* glow animato */
-body::before{
-content:"";
-position:absolute;
-width:700px;
-height:700px;
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1000px;
+      text-align: center;
+    }
 
-background:
-radial-gradient(circle,
-rgba(0,255,255,.10),
-transparent 70%);
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(56,189,248,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56,189,248,0.08) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
+      pointer-events: none;
+    }
 
-filter:blur(35px);
+    .card {
+      background: linear-gradient(180deg, rgba(8,20,40,0.72), rgba(5,10,25,0.55));
+      border: 1px solid rgba(56,189,248,0.25);
+      border-radius: var(--radius);
+      padding: 50px 32px;
+      backdrop-filter: blur(22px);
+      box-shadow:
+        0 0 50px rgba(56,189,248,0.18),
+        inset 0 0 30px rgba(56,189,248,0.08);
+      position: relative;
+      overflow: hidden;
+    }
 
-top:-180px;
-left:-180px;
+    h1 {
+      will-change: transform, opacity;
+      transform-origin: center center;
+      backface-visibility: hidden;
+      perspective: 1000px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+      color: #dff8ff;
+      text-shadow:
+        0 0 8px rgba(56,189,248,0.9),
+        0 0 22px rgba(56,189,248,0.8),
+        0 0 45px rgba(56,189,248,0.45);
+      animation: hologramBreath 4s linear infinite;
+    }
 
-animation:float 10s ease-in-out infinite;
-}
+    .subtitle {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--secondary);
+      margin-bottom: 42px;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      letter-spacing: 1px;
+    }
 
-/* alone cinematico */
-body::after{
-content:"";
-position:absolute;
-inset:0;
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 20px;
+    }
 
-background:
-radial-gradient(circle at center,
-rgba(0,255,255,0.04),
-transparent 60%);
+    .time-box {
+      background: rgba(255,255,255,0.04);
+      border-radius: 22px;
+      padding: 28px 12px;
+      border: 1px solid rgba(56,189,248,0.12);
+      box-shadow: inset 0 0 20px rgba(56,189,248,0.06);
+    }
 
-pointer-events:none;
-}
+    .number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.2rem);
+      font-weight: 700;
+      color: #7dd3fc;
+      margin-bottom: 8px;
+      text-shadow:
+        0 0 10px rgba(56,189,248,0.9),
+        0 0 30px rgba(56,189,248,0.6);
+      animation: none;
+      transform: translateZ(0) scale3d(0.97, 0.97, 1);
+    }
 
-@keyframes float{
-0%,100%{transform:translate(0,0);}
-50%{transform:translate(120px,80px);}
-}
+    .label {
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--secondary);
+    }
 
-.container{
-position:relative;
-z-index:2;
+    @keyframes hologramBreath {
+      0% {
+        opacity: 0.96;
+        transform: translateZ(0) scale3d(0.97, 0.97, 1);
+      }
 
-text-align:center;
+      50% {
+        opacity: 1;
+        transform: translateZ(0) scale3d(1.015, 1.015, 1);
+      }
 
-padding:55px 45px;
+      100% {
+        opacity: 0.96;
+        transform: translateZ(0) scale3d(0.97, 0.97, 1);
+      }
+    }
+      25% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.88;
+      }
+      75% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0.93;
+      }
+    }
 
-background:rgba(10,20,35,0.32);
+    @keyframes pulseGlow {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.04);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
 
-border-radius:28px;
+    .holo-ring {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      border: 1px solid rgba(56,189,248,0.12);
+      box-shadow: 0 0 80px rgba(56,189,248,0.08);
+      animation: rotateRing 30s linear infinite;
+      z-index: 0;
+    }
 
-backdrop-filter:blur(18px);
+    .holo-ring::before,
+    .holo-ring::after {
+      content: '';
+      position: absolute;
+      inset: 40px;
+      border-radius: 50%;
+      border: 1px dashed rgba(56,189,248,0.15);
+    }
 
-box-shadow:
-0 0 25px rgba(0,255,255,.10),
-0 0 80px rgba(0,180,255,.05);
+    .holo-ring::after {
+      inset: 100px;
+      animation: rotateRingReverse 16s linear infinite;
+    }
 
-width:90%;
-max-width:720px;
+    @keyframes rotateRing {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
-border:1px solid rgba(120,220,255,.15);
-}
+    @keyframes rotateRingReverse {
+      from {
+        transform: rotate(360deg);
+      }
+      to {
+        transform: rotate(0deg);
+      }
+    }
 
-h1{
-font-family:'Orbitron',sans-serif;
-color:#7ffcff;
+    @media (max-width: 600px) {
+      .card {
+        padding: 32px 20px;
+      }
 
-margin-bottom:12px;
+      .countdown {
+        gap: 14px;
+      }
 
-letter-spacing:2px;
-
-font-size:2rem;
-
-text-shadow:
-0 0 10px rgba(0,255,255,.35),
-0 0 25px rgba(0,255,255,.15);
-
-animation:pulse 3s infinite;
-}
-
-/* 🔥 pulsazione titolo */
-@keyframes pulse{
-0%,100%{
-transform:scale(1);
-text-shadow:
-0 0 10px rgba(0,255,255,.35),
-0 0 25px rgba(0,255,255,.20);
-}
-
-50%{
-transform:scale(1.08);
-text-shadow:
-0 0 15px rgba(0,255,255,.55),
-0 0 40px rgba(0,255,255,.35);
-}
-}
-
-/* ✨ SCRITTA INFERIORE STATICA */
-.description{
-font-family:'Orbitron',sans-serif;
-color:#7ffcff;
-margin-bottom:30px;
-font-size:1.1rem;
-letter-spacing:1.5px;
-opacity:.9;
-
-text-shadow:
-0 0 8px rgba(0,255,255,.30),
-0 0 18px rgba(0,255,255,.15);
-}
-
-.countdown{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:18px;
-margin-top:30px;
-}
-
-.box{
-background:rgba(0,255,255,.05);
-padding:22px 15px;
-border-radius:20px;
-text-align:center;
-border:1px solid rgba(0,255,255,.10);
-transition:.35s ease;
-box-shadow:0 0 10px rgba(0,255,255,.03);
-}
-
-.box:hover{
-transform:translateY(-6px);
-box-shadow:0 0 25px rgba(0,255,255,.18);
-border-color:rgba(0,255,255,.25);
-}
-
-.number{
-font-size:2.8rem;
-font-family:'Orbitron',sans-serif;
-color:#b8ffff;
-text-shadow:
-0 0 10px rgba(0,255,255,.35),
-0 0 25px rgba(0,255,255,.15);
-}
-
-.label{
-font-size:.9rem;
-text-transform:uppercase;
-margin-top:8px;
-letter-spacing:2px;
-color:#e1f9ff;
-}
-
-/* tablet */
-@media(max-width:700px){
-
-.container{padding:40px 25px;}
-
-h1{font-size:1.5rem;}
-
-.countdown{
-grid-template-columns:repeat(2,1fr);
-gap:15px;
-}
-
-.number{font-size:2.2rem;}
-}
-
-/* smartphone */
-@media(max-width:450px){
-
-body{
-padding:20px;
-align-items:flex-start;
-}
-
-.container{
-width:100%;
-padding:28px 18px;
-border-radius:18px;
-backdrop-filter:blur(12px);
-}
-
-h1{
-font-size:1.1rem;
-letter-spacing:1px;
-}
-
-.description{
-font-size:0.95rem;
-margin-bottom:20px;
-}
-
-.countdown{
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
-
-.box{
-padding:16px 10px;
-border-radius:16px;
-}
-
-.number{font-size:1.9rem;}
-
-.label{
-font-size:.75rem;
-letter-spacing:1px;
-}
-}
-
-html, body{
--webkit-text-size-adjust:100%;
-}
-
-</style>
+      .spaceship {
+        font-size: 3rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="stars"></div>
+  <div class="holo-ring"></div>
+  
 
-<div class="container">
+  <div class="container">
+    <div class="card">
+      <h1>IL GRANDE EVENTO COSMOS È IN ARRIVO!</h1>
+      <p class="subtitle">Il futuro è in attesa...</p>
 
-<h1>IL GRANDE EVENTO COSMOS STA ARRIVANDO!</h1>
+      <div class="countdown">
+        <div class="time-box">
+          <div class="number" id="days">0</div>
+          <div class="label">Giorni</div>
+        </div>
 
-<div class="description">
-Il futuro è in attesa...
-</div>
+        <div class="time-box">
+          <div class="number" id="hours">0</div>
+          <div class="label">Ore</div>
+        </div>
 
-<div class="countdown">
+        <div class="time-box">
+          <div class="number" id="minutes">0</div>
+          <div class="label">Minuti</div>
+        </div>
 
-<div class="box">
-<div class="number" id="days">00</div>
-<div class="label">Giorni</div>
-</div>
+        <div class="time-box">
+          <div class="number" id="seconds">0</div>
+          <div class="label">Secondi</div>
+        </div>
+      </div>
 
-<div class="box">
-<div class="number" id="hours">00</div>
-<div class="label">Ore</div>
-</div>
+      
+    </div>
+  </div>
 
-<div class="box">
-<div class="number" id="minutes">00</div>
-<div class="label">Minuti</div>
-</div>
+  <script>
+    const targetDate = new Date('2027-06-25T00:00:00').getTime();
 
-<div class="box">
-<div class="number" id="seconds">00</div>
-<div class="label">Secondi</div>
-</div>
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
 
-</div>
+      if (distance <= 0) {
+        document.querySelector('.countdown').innerHTML = '<h2>Il countdown è terminato!</h2>';
+        return;
+      }
 
-</div>
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-<script>
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+    }
 
-const targetDate = new Date("2027-06-25T00:00:00");
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
 
-function tick(){
+    const title = document.querySelector('h1');
 
-const now = new Date().getTime();
-const distance = targetDate - now;
+    function syncPulse() {
+      title.animate(
+        [
+          {
+            transform: 'translateZ(0) scale3d(0.97,0.97,1)',
+            opacity: 0.96
+          },
+          {
+            transform: 'translateZ(0) scale3d(1.015,1.015,1)',
+            opacity: 1,
+            offset: 0.5
+          },
+          {
+            transform: 'translateZ(0) scale3d(0.97,0.97,1)',
+            opacity: 0.96
+          }
+        ],
+        {
+          duration: 2000,
+          iterations: 1,
+          easing: 'linear'
+        }
+      );
+    }
 
-if(distance <= 0){
-document.getElementById("days").textContent = "00";
-document.getElementById("hours").textContent = "00";
-document.getElementById("minutes").textContent = "00";
-document.getElementById("seconds").textContent = "00";
-return;
-}
+    syncPulse();
+    setInterval(syncPulse, 2000);
 
-document.getElementById("days").textContent =
-String(Math.floor(distance/(1000*60*60*24))).padStart(2,"0");
-
-document.getElementById("hours").textContent =
-String(Math.floor((distance/(1000*60*60))%24)).padStart(2,"0");
-
-document.getElementById("minutes").textContent =
-String(Math.floor((distance/(1000*60))%60)).padStart(2,"0");
-
-document.getElementById("seconds").textContent =
-String(Math.floor((distance/1000)%60)).padStart(2,"0");
-
-}
-
-setInterval(tick,1000);
-tick();
-
-</script>
-
+    
+  </script>
 </body>
 </html>
+
