@@ -32,7 +32,7 @@ body{
   position:relative;
 }
 
-/* 🌍 TERRA CON PROFONDITÀ ZOOM */
+/* 🌍 SFONDO TERRA */
 .earth{
   position:absolute;
   bottom:0;
@@ -42,34 +42,21 @@ body{
   background: url("earth-4k.jpg") center bottom / cover no-repeat;
   z-index:-3;
 
-  animation: earthDepthZoom 14s ease-out forwards,
-             earthBreathing 10s ease-in-out infinite 14s;
+  animation: earthPulse 12s ease-in-out infinite;
 
   filter: contrast(1.15) saturate(1.25) brightness(0.95);
 }
 
-/* 🚀 ZOOM INIZIALE (PROFONDITÀ SPAZIALE) */
-@keyframes earthDepthZoom {
+/* 🌍 PULSAZIONE ZOOM */
+@keyframes earthPulse {
   0% {
-    transform: scale(0.92);
-    filter: brightness(0.7);
-  }
-  100% {
-    transform: scale(1.08);
-    filter: brightness(1);
-  }
-}
-
-/* 🌬️ RESPIRAZIONE DOPO LO ZOOM */
-@keyframes earthBreathing {
-  0% {
-    transform: scale(1.08);
+    transform: scale(1);
   }
   50% {
-    transform: scale(1.12);
+    transform: scale(1.035);
   }
   100% {
-    transform: scale(1.08);
+    transform: scale(1);
   }
 }
 
