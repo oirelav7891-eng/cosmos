@@ -39,17 +39,17 @@ body{
   position:absolute;
   inset:0;
 
-  /* zoom iniziale aumentato */
+  /* immagine più ampia */
   background:
     url("earth-4k.jpg")
-    center bottom / 130%
+    center bottom / 145%
     no-repeat;
 
   z-index:-3;
 
-  /* pulsazione lentissima */
+  /* pulsazione ancora più lenta */
   animation:
-    earthPulse 32s ease-in-out infinite;
+    earthPulse 42s cubic-bezier(0.42,0,0.58,1) infinite;
 
   filter:
     contrast(1.15)
@@ -58,13 +58,13 @@ body{
 
   transform-origin:center center;
 
-  will-change: transform;
+  will-change: transform, filter;
 }
 
-/* 🌌 PULSAZIONE COSMICA */
+/* 🌌 PULSAZIONE COSMICA ULTRA LENTA */
 @keyframes earthPulse {
 
-  /* stato iniziale */
+  /* massimo restringimento */
   0%{
     transform: scale(1);
 
@@ -74,7 +74,7 @@ body{
       brightness(0.92);
   }
 
-  /* zoom massimo */
+  /* lenta espansione */
   50%{
     transform: scale(1.20);
 
@@ -84,7 +84,7 @@ body{
       brightness(1);
   }
 
-  /* ritorno morbido */
+  /* ritorno ultra morbido */
   100%{
     transform: scale(1);
 
@@ -133,7 +133,7 @@ body{
   z-index:-1;
 
   animation:
-    pulseNebula 18s infinite alternate;
+    pulseNebula 24s ease-in-out infinite alternate;
 }
 
 @keyframes pulseNebula{
@@ -186,7 +186,7 @@ body{
     0 0 12px #00eaff;
 
   animation:
-    pulseTitle 3s infinite ease-in-out;
+    pulseTitle 4s ease-in-out infinite;
 
   display:flex;
   flex-direction:column;
@@ -251,8 +251,8 @@ body{
   padding:14px 8px;
 
   transition:
-    transform 0.4s ease,
-    box-shadow 0.4s ease;
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
 }
 
 .time-box:hover{
@@ -294,7 +294,7 @@ body{
   }
 
   .earth{
-    background-size:180%;
+    background-size:190%;
   }
 }
 
@@ -314,7 +314,7 @@ body{
   }
 
   .earth{
-    background-size:240%;
+    background-size:250%;
   }
 }
 </style>
