@@ -1,297 +1,224 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="theme-color" content="#020111">
-  <title>Countdown COSMOS</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#020111">
+<title>Countdown COSMOS</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Orbitron', sans-serif;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Orbitron', sans-serif;
+}
 
-    html, body{
-      width:100%;
-      height:100%;
-      overflow-x:hidden;
-    }
+html, body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
 
-    body{
-      height:100vh;
-      overflow:hidden;
-      background:#000;
-      color:white;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      position:relative;
-      padding:env(safe-area-inset-top)
-              env(safe-area-inset-right)
-              env(safe-area-inset-bottom)
-              env(safe-area-inset-left);
-    }
+body{
+  height:100vh;
+  background:#000;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
 
-    .space-bg{
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.2) 1px, transparent 2px),
-        radial-gradient(circle at 80% 40%, rgba(255,255,255,0.15) 1px, transparent 2px),
-        radial-gradient(circle at 50% 80%, rgba(255,255,255,0.2) 1px, transparent 2px),
-        linear-gradient(to bottom, #020111 0%, #091b3d 40%, #000000 100%);
-      z-index:-4;
-    }
+/* 🌍 TERRA DAL BASSO */
+.earth{
+  position:absolute;
+  bottom:-20%;
+  left:0;
+  width:100%;
+  height:80%;
+  background: url("earth-4k.jpg") center bottom / cover no-repeat;
+  z-index:-3;
+  animation: earthRise 6s ease-out forwards;
+  filter: contrast(1.1) saturate(1.2);
+}
 
-    /* 🌍 TERRA DAL BASSO */
-    .earth{
-      position:absolute;
-      bottom:-20%;
-      left:50%;
-      transform:translateX(-50%);
-      width:120vw;
-      height:70vh;
-      background-image:url("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=2000&q=80");
-      background-size:cover;
-      background-position:center bottom;
-      z-index:-3;
-      opacity:0.9;
+@keyframes earthRise{
+  from{
+    transform: translateY(40%);
+    opacity:0.6;
+  }
+  to{
+    transform: translateY(0%);
+    opacity:1;
+  }
+}
 
-      /* sfumatura superiore per blending */
-      mask-image: linear-gradient(to top, black 60%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to top, black 60%, transparent 100%);
-    }
+/* atmosfera soft */
+.atmosphere{
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at bottom, rgba(0,180,255,0.25), transparent 60%);
+  z-index:-2;
+}
 
-    .nebula{
-      position:absolute;
-      inset:0;
-      z-index:-2;
-      background:
-        radial-gradient(circle at 50% 50%, rgba(0,120,255,0.10), transparent 60%),
-        radial-gradient(circle at 20% 30%, rgba(0,255,255,0.07), transparent 55%),
-        radial-gradient(circle at 80% 70%, rgba(255,0,255,0.05), transparent 60%),
-        linear-gradient(to bottom, #020111 0%, #000814 60%, #000000 100%);
-      filter: blur(25px);
-      animation: nebulaFloat 20s ease-in-out infinite alternate;
-    }
+/* nebula leggera sopra Terra */
+.nebula{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(0,255,255,0.10), transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(255,0,255,0.08), transparent 45%);
+  filter: blur(40px);
+  z-index:-1;
+  animation:pulseNebula 10s infinite alternate;
+}
 
-    @keyframes nebulaFloat{
-      0%{ transform: scale(1) translate(0px, 0px); }
-      50%{ transform: scale(1.05) translate(10px, -10px); }
-      100%{ transform: scale(1.02) translate(-10px, 5px); }
-    }
+@keyframes pulseNebula{
+  from{ transform:scale(1); }
+  to{ transform:scale(1.08); }
+}
 
-    .stars{
-      position:absolute;
-      width:100%;
-      height:100%;
-      z-index:-1;
-    }
+.container{
+  width:90%;
+  max-width:1000px;
+  padding:clamp(20px, 5vw, 50px);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:24px;
+  background:rgba(0,0,0,0.45);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 40px rgba(0,140,255,0.25);
+  text-align:center;
+}
 
-    .star{
-      position:absolute;
-      width:2px;
-      height:2px;
-      background:white;
-      border-radius:50%;
-      animation: twinkle 5s infinite ease-in-out;
-      opacity:0.8;
-    }
+.title{
+  font-size:clamp(1.6rem, 4vw, 2.6rem);
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:#7df9ff;
+  text-shadow:0 0 12px #00eaff;
+  animation:pulseTitle 2.5s infinite ease-in-out;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  line-height:1.2;
+}
 
-    @keyframes twinkle{
-      0%,100%{ opacity:0.2; }
-      50%{ opacity:1; }
-    }
+.title .cosmos{
+  font-size:clamp(2rem, 5vw, 3rem);
+  letter-spacing:6px;
+}
 
-    .container{
-      width:90%;
-      max-width:1000px;
-      padding:clamp(20px, 5vw, 50px);
-      border:1px solid rgba(255,255,255,0.15);
-      border-radius:24px;
-      background:rgba(0,0,0,0.35);
-      backdrop-filter: blur(12px);
-      box-shadow:
-        0 0 20px rgba(0,255,255,0.2),
-        0 0 80px rgba(0,100,255,0.15);
-      text-align:center;
-    }
+@keyframes pulseTitle{
+  0%,100%{ transform:scale(1); }
+  50%{ transform:scale(1.05); }
+}
 
-    .title{
-      font-size:clamp(1.6rem, 4vw, 2.6rem);
-      letter-spacing:3px;
-      text-transform:uppercase;
-      color:#7df9ff;
-      text-shadow:0 0 12px #00eaff;
-      animation:pulseTitle 2.5s infinite ease-in-out;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      line-height:1.2;
-    }
+.subtitle{
+  margin-top:10px;
+  margin-bottom:40px;
+  font-size:1rem;
+  letter-spacing:2px;
+  color:#b6cfff;
+  opacity:0.85;
+}
 
-    .title .line{ display:block; }
+.countdown{
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
+  gap:20px;
+}
 
-    .title .cosmos{
-      font-size:clamp(2rem, 5vw, 3rem);
-      letter-spacing:6px;
-    }
+.time-box{
+  background:rgba(10,20,40,0.7);
+  border:1px solid rgba(125,249,255,0.2);
+  border-radius:20px;
+  padding:20px 10px;
+}
 
-    @keyframes pulseTitle{
-      0%,100%{
-        transform:scale(1);
-        text-shadow:0 0 10px #00eaff, 0 0 25px #008cff;
-      }
-      50%{
-        transform:scale(1.05);
-        text-shadow:0 0 20px #00eaff, 0 0 50px #00b7ff;
-      }
-    }
+.number{
+  font-size:clamp(2rem, 8vw, 4rem);
+  font-weight:800;
+  text-shadow:0 0 10px #00d9ff;
+}
 
-    .subtitle{
-      margin-top:10px;
-      margin-bottom:40px;
-      font-size:1rem;
-      letter-spacing:2px;
-      color:#b6cfff;
-      opacity:0.85;
-    }
+.label{
+  margin-top:10px;
+  font-size:0.9rem;
+  letter-spacing:3px;
+  color:#7df9ff;
+  text-transform:uppercase;
+}
 
-    .countdown{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      gap:clamp(10px, 2vw, 20px);
-    }
+@media(max-width:768px){
+  .countdown{ grid-template-columns:repeat(2, 1fr); }
+}
 
-    .time-box{
-      background:rgba(10,20,40,0.7);
-      border:1px solid rgba(125,249,255,0.2);
-      border-radius:20px;
-      padding:20px 10px;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      will-change: transform;
-    }
-
-    .time-box:hover{
-      transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(0, 217, 255, 0.35);
-    }
-
-    .number{
-      font-size:clamp(2rem, 8vw, 4rem);
-      font-weight:800;
-      color:#fff;
-      text-shadow:0 0 10px #00d9ff;
-    }
-
-    .label{
-      margin-top:10px;
-      font-size:0.9rem;
-      letter-spacing:3px;
-      color:#7df9ff;
-      text-transform:uppercase;
-    }
-
-    @media(max-width:768px){
-      .countdown{ grid-template-columns:repeat(2, 1fr); }
-    }
-
-    @media(max-width:480px){
-      .countdown{ grid-template-columns:1fr; }
-    }
-  </style>
+@media(max-width:480px){
+  .countdown{ grid-template-columns:1fr; }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="space-bg"></div>
-  <div class="earth"></div>
-  <div class="nebula"></div>
-  <div class="stars" id="stars"></div>
+<!-- 🌍 NUOVO SFONDO TERRA -->
+<div class="earth"></div>
+<div class="atmosphere"></div>
+<div class="nebula"></div>
 
-  <div class="container">
+<div class="container">
 
-    <div class="title">
-      <div class="line">Il grande evento</div>
-      <div class="line cosmos">COSMOS</div>
-      <div class="line">sta per arrivare!</div>
-    </div>
-
-    <div class="subtitle">
-      Il futuro è in attesa...
-    </div>
-
-    <div class="countdown">
-      <div class="time-box">
-        <div class="number" id="days">00</div>
-        <div class="label">Giorni</div>
-      </div>
-
-      <div class="time-box">
-        <div class="number" id="hours">00</div>
-        <div class="label">Ore</div>
-      </div>
-
-      <div class="time-box">
-        <div class="number" id="minutes">00</div>
-        <div class="label">Minuti</div>
-      </div>
-
-      <div class="time-box">
-        <div class="number" id="seconds">00</div>
-        <div class="label">Secondi</div>
-      </div>
-    </div>
-
+  <div class="title">
+    <div>Il grande evento</div>
+    <div class="cosmos">COSMOS</div>
+    <div>sta per arrivare!</div>
   </div>
 
-  <script>
-    const starsContainer = document.getElementById('stars');
+  <div class="subtitle">Il futuro è in attesa...</div>
 
-    for(let i = 0; i < 180; i++){
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.left = Math.random()*100 + '%';
-      star.style.top = Math.random()*100 + '%';
-      star.style.animationDelay = Math.random()*5 + 's';
-      starsContainer.appendChild(star);
-    }
+  <div class="countdown">
+    <div class="time-box"><div class="number" id="days">00</div><div class="label">Giorni</div></div>
+    <div class="time-box"><div class="number" id="hours">00</div><div class="label">Ore</div></div>
+    <div class="time-box"><div class="number" id="minutes">00</div><div class="label">Minuti</div></div>
+    <div class="time-box"><div class="number" id="seconds">00</div><div class="label">Secondi</div></div>
+  </div>
 
-    const targetDate = new Date("June 25, 2027 00:00:00").getTime();
+</div>
 
-    function updateCountdown(){
-      const now = new Date().getTime();
-      const distance = targetDate - now;
+<script>
+const targetDate = new Date("June 25, 2027 00:00:00").getTime();
 
-      if(distance < 0){
-        document.querySelector('.countdown').innerHTML =
-          `<div style="grid-column:1/-1;font-size:2rem;color:#7df9ff;">
-            Missione Avviata 🚀
-          </div>`;
-        return;
-      }
+function updateCountdown(){
+  const now = new Date().getTime();
+  const distance = targetDate - now;
 
-      document.getElementById('days').textContent =
-        Math.floor(distance / (1000*60*60*24));
+  if(distance < 0){
+    document.querySelector('.countdown').innerHTML =
+      `<div style="grid-column:1/-1;font-size:2rem;color:#7df9ff;">
+        Missione Avviata 🚀
+      </div>`;
+    return;
+  }
 
-      document.getElementById('hours').textContent =
-        Math.floor((distance%(1000*60*60*24))/(1000*60*60)).toString().padStart(2,'0');
+  document.getElementById('days').textContent =
+    Math.floor(distance / (1000*60*60*24));
 
-      document.getElementById('minutes').textContent =
-        Math.floor((distance%(1000*60*60))/(1000*60)).toString().padStart(2,'0');
+  document.getElementById('hours').textContent =
+    Math.floor((distance%(1000*60*60*24))/(1000*60*60)).toString().padStart(2,'0');
 
-      document.getElementById('seconds').textContent =
-        Math.floor((distance%(1000*60))/1000).toString().padStart(2,'0');
-    }
+  document.getElementById('minutes').textContent =
+    Math.floor((distance%(1000*60*60))/(1000*60)).toString().padStart(2,'0');
 
-    updateCountdown();
-    setInterval(updateCountdown,1000);
-  </script>
+  document.getElementById('seconds').textContent =
+    Math.floor((distance%(1000*60))/1000).toString().padStart(2,'0');
+}
+
+updateCountdown();
+setInterval(updateCountdown,1000);
+</script>
 
 </body>
 </html>
